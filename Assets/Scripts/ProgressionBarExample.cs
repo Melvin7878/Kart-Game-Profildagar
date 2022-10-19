@@ -38,7 +38,7 @@ public class ProgressionBarExample : MonoBehaviour
 
         //middle distance value
 
-        if (player.position.x == progressValue/2 || player.position.y == middleY)
+        if (startD == progressValue/2 || player.position.y == middleY)
         {
             Debug.Log("yes, halfway there gandalfs mamma");
         }
