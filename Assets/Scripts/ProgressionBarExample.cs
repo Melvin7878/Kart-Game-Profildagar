@@ -21,16 +21,17 @@ public class ProgressionBarExample : MonoBehaviour
     [Header ("Checkpoint related variables")]
     [SerializeField] Transform player;
     [SerializeField] Transform endPosition;
+    [SerializeField] Transform startPosition;
 
 
     void Start()
     {
         startD = Mathf.Sqrt(Mathf.Pow(endPosition.position.x - player.position.x, 2) + Mathf.Pow(endPosition.position.y - player.position.y, 2));
-        middleX = ((player.position.x + endPosition.position.x) / 2);
-        middleY = ((player.position.y + endPosition.position.y) / 2);   //will be used when we've calculated y position progression
+        middleX = Mathf.Abs((startPosition.position.x + endPosition.position.x) / 200);
+        middleY = Mathf.Abs((startPosition.position.y + endPosition.position.y) / 200);   //will be used when we've calculated y position progression
 
-        //Set a offset for the en point
-        //endPosition.position.x = endPosition.position.x - 0.2f;
+        Debug.Log($"The whole distance from start: {startD}");
+        Debug.Log($"Half of startd: {startD / 2} \n  Half according to the variable: {middleX}");
     }
 
     void Update()
@@ -43,7 +44,7 @@ public class ProgressionBarExample : MonoBehaviour
 
         //middle distance value
 
-        if (startD == progressValue/2 || player.position.y == middleY)
+        if (player.position.x == middleX || player.position.y == middleY)
         {
             Debug.Log("yes, halfway there");
         }
