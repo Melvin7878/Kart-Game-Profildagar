@@ -10,31 +10,38 @@ public class ProgressionBarExample : MonoBehaviour
     [SerializeField] RectTransform backgroundBar;
     [SerializeField] RectTransform currentProgression;
 
-    [SerializeField][Range(0, 100)] float progressionValue;
+    [SerializeField][Range(0, 1)] float progressValue;
+
+    private float startD;
+    private float middleX;
+    private float middleY;
 
     //Checkpoint related variables
     [SerializeField] Transform player;
     [SerializeField] Transform endPosition;
 
-    private float startD;
-    private float distanceTraveled;
 
     void Start()
     {
-        startD = Mathf.Sqrt(Mathf.Pow(endPosition.transform.position.x - player.position.x, 2) + Mathf.Pow(endPosition.transform.position.y - player.position.y, 2));
+        startD = Mathf.Sqrt(Mathf.Pow(endPosition.position.x - player.position.x, 2) + Mathf.Pow(endPosition.position.y - player.position.y, 2));
+        middleX = ((player.position.x + endPosition.position.x) / 2);
+        middleY = ((player.position.y + endPosition.position.y) / 2);   //will be used when we've calculated y position progression
     }
 
     void Update()
     {
-        float distance = Mathf.Sqrt(Mathf.Pow(endPosition.transform.position.x - player.position.x, 2) + Mathf.Pow(endPosition.transform.position.y - player.position.y, 2));
-        float progressUpdate = 1 - (distance / startD);
-        float position = (backgroundBar.rect.width - currentProgression.rect.width) * progressUpdate;
+        //Whole distance value
+        float distance = Mathf.Sqrt(Mathf.Pow(endPosition.position.x - player.position.x, 2) + Mathf.Pow(endPosition.position.y - player.position.y, 2));
+        float position = (backgroundBar.rect.width - currentProgression.rect.width) * progressValue;
+        progressValue = 1 - (distance / startD);
 
-        //Whole distance
-        progressionValue = progressUpdate;
 
-        //middle distance
+        //middle distance value
 
+        if (player.position.x == progressValue/2 || player.position.y == middleY)
+        {
+            Debug.Log("yes, halfway there gandalfs mamma");
+        }
 
 
         // Denna metoden förflyttar currentProgression (den röda kuben) position är förflyttningen längs progression-baren.
