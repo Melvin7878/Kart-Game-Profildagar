@@ -6,17 +6,19 @@ using UnityEngine.UI;
 public class ProgressionBarExample : MonoBehaviour
 {
     //Variables
-    //Progression bar related variables
+    [Header ("Progression related variables")]
     [SerializeField] RectTransform backgroundBar;
     [SerializeField] RectTransform currentProgression;
 
     [SerializeField][Range(0, 1)] float progressValue;
+    
+    [SerializeField] float progressionOffset;
 
     private float startD;
     private float middleX;
     private float middleY;
 
-    //Checkpoint related variables
+    [Header ("Checkpoint related variables")]
     [SerializeField] Transform player;
     [SerializeField] Transform endPosition;
 
@@ -26,13 +28,16 @@ public class ProgressionBarExample : MonoBehaviour
         startD = Mathf.Sqrt(Mathf.Pow(endPosition.position.x - player.position.x, 2) + Mathf.Pow(endPosition.position.y - player.position.y, 2));
         middleX = ((player.position.x + endPosition.position.x) / 2);
         middleY = ((player.position.y + endPosition.position.y) / 2);   //will be used when we've calculated y position progression
+
+        //Set a offset for the en point
+        //endPosition.position.x = endPosition.position.x - 0.2f;
     }
 
     void Update()
     {
         //Whole distance value
         float distance = Mathf.Sqrt(Mathf.Pow(endPosition.position.x - player.position.x, 2) + Mathf.Pow(endPosition.position.y - player.position.y, 2));
-        float position = (backgroundBar.rect.width - currentProgression.rect.width) * progressValue;
+        float position = (backgroundBar.rect.width - currentProgression.rect.width) * progressValue * progressionOffset;
         progressValue = 1 - (distance / startD);
 
 
@@ -40,7 +45,7 @@ public class ProgressionBarExample : MonoBehaviour
 
         if (startD == progressValue/2 || player.position.y == middleY)
         {
-            Debug.Log("yes, halfway there gandalfs mamma");
+            Debug.Log("yes, halfway there");
         }
 
 
