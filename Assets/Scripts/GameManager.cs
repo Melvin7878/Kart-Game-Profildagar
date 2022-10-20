@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         {
             DistanceFormula(player, levelCheckpoints[i], levelCheckpoints[i + 1 % levelCheckpoints.Count]);
             MiddlePointFormula(levelCheckpoints[i], levelCheckpoints[i + 1 % levelCheckpoints.Count], player);
-            Debug.Log($"This is currD: {currD}\n And this is startD; {startD}");
+            Debug.Log($"This is currD: {currD}\n And this is startD; {startD}\n This is the level checkpoint index: {i}");
         }
 
         //startD aka the whole distance should be assigned here
